@@ -156,14 +156,15 @@ describe "ApiAuth" do
       end
 
       it "should sign the request using the generated md5 header" do
+        date = Time.now.utc.httpdate
         headers1 = { 'Content-MD5' => "1B2M2Y8AsgTpgAmY7PhCfg==",
                      'Content-Type' => "text/plain",
-                     'Date' => Time.now.utc.httpdate }
+                     'Date' => date }
         request1 = RestClient::Request.new(:url => "/resource.xml?foo=bar&bar=foo",
                                            :headers => headers1,
                                            :method => :put)
         headers2 = { 'Content-Type' => "text/plain",
-                     'Date' => Time.now.utc.httpdate }
+                     'Date' => date }
         request2 = RestClient::Request.new(:url => "/resource.xml?foo=bar&bar=foo",
                                            :headers => headers2,
                                            :method => :put)

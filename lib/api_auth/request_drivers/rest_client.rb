@@ -33,6 +33,7 @@ module ApiAuth
       def populate_content_md5
         if [:post, :put].include?(@request.method)
           @request.headers["Content-MD5"] = calculated_md5
+          save_headers
         end
       end
 
@@ -60,6 +61,7 @@ module ApiAuth
 
       def set_date
         @request.headers.merge!({ "DATE" => Time.now.utc.httpdate })
+        save_headers
       end
 
       def timestamp
